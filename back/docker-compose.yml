@@ -1,0 +1,46 @@
+version: '3.8'
+
+services:
+  php:
+    build:
+      context: .
+      dockerfile: docker-php8-apache/Dockerfile
+    container_name: container_php
+    ports:
+      - 8000:80
+    volumes:
+      - .:/var/www/html
+      - ./docker-php8-apache/000-default.conf:/etc/apache2/sites-enabled/000-default.conf
+    depends_on:
+      - mysql
+    environment:
+      MYSQL_HOST: mysql
+      MYSQL_PORT: 3306
+      MYSQL_DATABASE: product_db
+      MYSQL_USER: root
+      MYSQL_PASSWORD: root
+
+  mysql:
+    image: mysql:8.0
+    container_name: container_mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: product_db
+    ports:
+      - 3306:3306
+    volumes:
+      - db_data:/var/lib/mysql
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    container_name: container_phpmyadmin
+    environment:
+      PMA_HOST: mysql
+      MYSQL_ROOT_PASSWORD: root
+    depends_on:
+      - mysql
+    ports:
+      - 8899:80
+
+volumes:
+  db_data:
