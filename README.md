@@ -77,3 +77,25 @@ Le back-end créé doit pouvoir gérer les produits dans une base de données SQ
 ## Bonus
 
 Vous pouvez ajouter des tests Postman ou Swagger pour valider votre API
+
+
+# Instructions :
+1 - Démarrer les conteneurs Docker
+Accédez au répertoire backend et exécutez la commande suivante :
+
+``` typescript
+cd back && docker-compose up -d
+```
+2- Générer les données de fixtures
+Utilisez la commande suivante pour générer les fixtures de produits :
+
+``` typescript
+php bin/console make:fixtures ProductFixtures
+```
+3- Accéder à la documentation de l'API
+Une fois la configuration terminée, vous pouvez accéder à la documentation de l'API produit à l'adresse suivante : http://localhost:8000/api/docs
+
+4 - Aperçu
+Voici un aperçu de l'application :
+
+![api_product](api product.PNG)
